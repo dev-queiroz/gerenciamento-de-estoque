@@ -6,7 +6,7 @@ using namespace std;
 
 // Classe base Entidade
 class Entidade {
-  public:
+public:
     string nome;
 
     Entidade(string n) : nome(n) {}
@@ -22,7 +22,7 @@ class Entidade {
 
 // Classe Produto herda de Entidade
 class Produto : public Entidade {
-  public:
+public:
     string codigo;
     string descricao;
     float preco;
@@ -48,7 +48,6 @@ public:
         cout << "Fornecedor: " << nome << " - Contato: " << contato << " - Endereço: " << endereco << endl;
     }
 
-    // Método para editar informações do fornecedor
     void editarInformacoes(string n, string c, string e) {
         nome = n;
         contato = c;
@@ -69,7 +68,7 @@ public:
     }
 
     void atualizar_estoque(string c, int q) {
-        for (Produto p : produtos) {
+        for (Produto& p : produtos) {
             if (p.codigo == c) {
                 p.quantidade_estoque += q;
                 cout << "Estoque de " << p.nome << " atualizado para " << p.quantidade_estoque << endl;
@@ -79,14 +78,24 @@ public:
         cout << "Produto não encontrado" << endl;
     }
 
+    void remover_produto(string codigo) {
+        for (int i = 0; i < produtos.size(); i++) {
+            if (produtos[i].codigo == codigo) {
+                produtos.erase(produtos.begin() + i);
+                cout << "Produto " << codigo << " removido com sucesso!" << endl;
+                return;
+            }
+        }
+        cout << "Produto não encontrado" << endl;
+    }
+
     void imprimir() {
         cout << "Relatório de Estoque:" << endl;
-        for (Produto p : produtos) {
+        for (Produto& p : produtos) {
             p.imprimir();
         }
     }
 };
-
 
 // Exemplo de uso
 int main() {
@@ -99,7 +108,8 @@ int main() {
         cout << "2. Atualizar estoque" << endl;
         cout << "3. Gerar relatório" << endl;
         cout << "4. Editar fornecedor" << endl;
-        cout << "5. Sair" << endl;
+        cout << "5. Remover produto por código" << endl;
+        cout << "0. Sair" << endl;
 
         int opcao;
         cin >> opcao;
@@ -146,6 +156,11 @@ int main() {
             getline(cin, endereco);
             fornecedor.editarInformacoes(nome, contato, endereco);
         } else if (opcao == 5) {
+            string codigo;
+            cout << "Código do produto a remover: ";
+            getline(cin, codigo);
+            estoque.remover_produto(codigo);
+        } else if (opcao == 0) {
             break;
         } else {
             cout << "Opção inválida. Por favor, tente novamente." << endl;
