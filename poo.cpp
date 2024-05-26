@@ -157,10 +157,10 @@ int main() {
             getline(cin, endereco);
             fornecedor.editarInformacoes(nome, contato, endereco);
         } else if (opcao == 5) {
-        	string codigo;
-        	cout << "Código do produto a remover: ";
-        	getline(cin, codigo);
-        	estoque.remover_produto(codigo);
+        	    string codigo;
+           	cout << "Código do produto a remover: ";
+           	getline(cin, codigo);
+           	estoque.remover_produto(codigo);
         } else if (opcao == 0) {
             break;
         } else {
