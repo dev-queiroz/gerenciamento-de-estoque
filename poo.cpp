@@ -68,7 +68,8 @@ public:
     }
 
     void atualizar_estoque(string c, int q) {
-        for (Produto& p : produtos) {
+        for (int i = 0; i < produtos.size(); ++i) {
+    		Produto& p = produtos[i];
             if (p.codigo == c) {
                 p.quantidade_estoque += q;
                 cout << "Estoque de " << p.nome << " atualizado para " << p.quantidade_estoque << endl;
@@ -113,7 +114,7 @@ int main() {
 
         int opcao;
         cin >> opcao;
-        cin.ignore(); // Limpa o buffer do teclado
+        cin.ignore();
 
         if (opcao == 1) {
             string nome, codigo, descricao;
@@ -129,7 +130,7 @@ int main() {
             cin >> preco;
             cout << "Quantidade em estoque: ";
             cin >> quantidade_estoque;
-            cin.ignore(); // Limpa o buffer do teclado após ler um número
+            cin.ignore();
 
             Produto novoProduto(nome, codigo, descricao, preco, quantidade_estoque);
             estoque.adicionar_produto(novoProduto);
@@ -141,7 +142,7 @@ int main() {
             getline(cin, codigo);
             cout << "Quantidade a adicionar/remover: ";
             cin >> quantidade;
-            cin.ignore(); // Limpa o buffer do teclado após ler um número
+            cin.ignore();
 
             estoque.atualizar_estoque(codigo, quantidade);
         } else if (opcao == 3) {
@@ -156,10 +157,10 @@ int main() {
             getline(cin, endereco);
             fornecedor.editarInformacoes(nome, contato, endereco);
         } else if (opcao == 5) {
-            string codigo;
-            cout << "Código do produto a remover: ";
-            getline(cin, codigo);
-            estoque.remover_produto(codigo);
+        	string codigo;
+        	cout << "Código do produto a remover: ";
+        	getline(cin, codigo);
+        	estoque.remover_produto(codigo);
         } else if (opcao == 0) {
             break;
         } else {
