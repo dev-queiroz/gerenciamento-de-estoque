@@ -38,7 +38,7 @@ public:
 
     // Método para imprimir as informações do produto
     void imprimir() {
-        cout << "Produto: " << nome << " - Código: " << codigo << " - Descrição: " << descricao << " - Preço: R$" << preco << " - Quantidade em Estoque: " << quantidade_estoque << endl;
+        cout << "Produto: " << nome << " - Codigo: " << codigo << " - Descricao: " << descricao << " - Preco: R$" << preco << " - Quantidade em Estoque: " << quantidade_estoque << endl;
     }
 };
 
@@ -54,7 +54,7 @@ public:
 
     // Método para imprimir as informações do fornecedor
     void imprimir() {
-        cout << "Fornecedor: " << nome << " - Contato: " << contato << " - Endereço: " << endereco << endl;
+        cout << "Fornecedor: " << nome << " - Contato: " << contato << " - Endereco: " << endereco << endl;
     }
 
     // Método para editar as informações do fornecedor
@@ -81,7 +81,7 @@ public:
 
     // Método para atualizar a quantidade em estoque de um produto, onde "i" vai percorrer o tamanho do vetor produtos, até encontrar o código buscado para prosseguir a atualização
     void atualizar_estoque(string c, int q) {
-        for (int i = 0; i < produtos.size(); ++i) {
+        for (int i = 0; i < (int) produtos.size(); ++i) {
             Produto& p = produtos[i];
             if (p.codigo == c) {
                 p.quantidade_estoque += q;
@@ -89,25 +89,26 @@ public:
                 return;
             }
         }
-        cout << "Produto não encontrado" << endl;
+        cout << "Produto nao encontrado" << endl;
     }
 
     // Método para remover um produto do vetor de produtos, onde novamente, "i" percorrerá o vetor produtos até achar o código buscado, e ".erase()" apaga o produto que tiver o código buscado
     void remover_produto(string codigo) {
-        for (int i = 0; i < produtos.size(); i++) {
+        for (int i = 0; i < (int) produtos.size(); i++) {
             if (produtos[i].codigo == codigo) {
                 produtos.erase(produtos.begin() + i);
                 cout << "Produto " << codigo << " removido com sucesso!" << endl;
                 return;
             }
         }
-        cout << "Produto não encontrado" << endl;
+        cout << "Produto nao encontrado" << endl;
     }
 
     // Método para imprimir um relatório com todos os produtos em estoque
     void imprimir() {
-        cout << "Relatório de Estoque:" << endl;
-        for (Produto p : produtos) {
+        cout << "Relatorio de Estoque:" << endl;
+        for (int i = 0; i < (int) produtos.size(); i++) {
+			Produto p = produtos[i];
             p.imprimir();
         }
     }
@@ -118,17 +119,17 @@ int main() {
     // Cria um objeto Estoque chamado 'estoque'
     Estoque estoque("Estoque Principal");
     // Cria um objeto Fornecedor chamado 'fornecedor'
-    Fornecedor fornecedor("Fornecedor Padrão", "contato@fornecedor.com", "Endereço Padrão");
+    Fornecedor fornecedor("Fornecedor Padrao", "contato@fornecedor.com", "Endereço Padrão");
 
     // Loop infinito para simular um menu de opções
     while (true) {
         // Imprime as opções do menu
-        cout << "\nOpções:" << endl;
+        cout << "\nOpcoes:" << endl;
         cout << "1. Adicionar produto" << endl;
         cout << "2. Atualizar estoque" << endl;
-        cout << "3. Gerar relatório" << endl;
+        cout << "3. Gerar relatorio" << endl;
         cout << "4. Editar fornecedor" << endl;
-        cout << "5. Remover produto por código" << endl;
+        cout << "5. Remover produto por codigo" << endl;
         cout << "0. Sair" << endl;
 
         // Lê a opção do usuário
@@ -144,11 +145,11 @@ int main() {
             int quantidade_estoque;
             cout << "Nome do produto: ";
             getline(cin, nome);
-            cout << "Código do produto: ";
+            cout << "Codigo do produto: ";
             getline(cin, codigo);
-            cout << "Descrição do produto: ";
+            cout << "Descricao do produto: ";
             getline(cin, descricao);
-            cout << "Preço do produto (separado por '.'): ";
+            cout << "Preco do produto (separado por '.'): ";
             cin >> preco;
             cout << "Quantidade em estoque: ";
             cin >> quantidade_estoque;
@@ -161,7 +162,7 @@ int main() {
             // Código para atualizar o estoque de um produto
             string codigo;
             int quantidade;
-            cout << "Código do produto: ";
+            cout << "Codigo do produto: ";
             getline(cin, codigo);
             cout << "Quantidade a adicionar/remover: ";
             cin >> quantidade;
@@ -178,13 +179,13 @@ int main() {
             getline(cin, nome);
             cout << "Contato do fornecedor: ";
             getline(cin, contato);
-            cout << "Endereço do fornecedor: ";
+            cout << "Endereco do fornecedor: ";
             getline(cin, endereco);
             fornecedor.editarInformacoes(nome, contato, endereco);
         } else if (opcao == 5) {
             // Código para remover um produto pelo código
             string codigo;
-        	cout << "Código do produto a remover: ";
+        	cout << "Codigo do produto a remover: ";
         	getline(cin, codigo);
         	estoque.remover_produto(codigo);
         } else if (opcao == 0) {
@@ -192,7 +193,7 @@ int main() {
             break;
         } else {
             // Informa ao usuário que a opção é inválida
-            cout << "Opção inválida. Por favor, tente novamente." << endl;
+            cout << "Opcao invalida. Por favor, tente novamente." << endl;
         }
     }
 
